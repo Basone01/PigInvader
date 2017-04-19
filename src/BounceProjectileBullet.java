@@ -84,18 +84,18 @@ public class BounceProjectileBullet extends Bullet implements Runnable{
 			}
 			if(Math.abs(ax)>Math.abs(ay)){
 				for(int i=0;i<Stage.arrayObstacle.size();i++){
-					if(getBoundsRight().intersects(Stage.arrayObstacle.get(i).getBounds())){
+					if(isRightCollision()){
 							ax*=-0.9;
 							x=Stage.arrayObstacle.get(i).getX()-width;
 	
-					}else if(getBoundsLeft().intersects(Stage.arrayObstacle.get(i).getBounds())){
+					}else if(isLeftCollision()){
 							ax*=-0.9;
 							x=Stage.arrayObstacle.get(i).getX()+Stage.arrayObstacle.get(i).getWidth();
-					}else  if(getBoundsDown().intersects(Stage.arrayObstacle.get(i).getBounds())){
+					}else  if(isBottomCollision()){
 						y=Stage.arrayObstacle.get(i).getY()-height;
 						ay*=-0.7;
 					
-					}else if(getBoundsUp().intersects(Stage.arrayObstacle.get(i).getBounds())){
+					}else if(isTopCollision()){
 						y=Stage.arrayObstacle.get(i).getY()+Stage.arrayObstacle.get(i).getHeight();
 						ay*=-0.7;
 					
@@ -162,6 +162,19 @@ public class BounceProjectileBullet extends Bullet implements Runnable{
 				return false;
 			}
 		return true;
+	}
+	
+	private boolean isLeftCollision(){
+		return getBoundsLeft().intersects(Stage.arrayObstacle.get(i).getBounds());
+	}
+	private boolean isRightCollision(){
+		return getBoundsRight().intersects(Stage.arrayObstacle.get(i).getBounds());
+	}
+	private boolean isTopCollision(){
+		return getBoundsTop().intersects(Stage.arrayObstacle.get(i).getBounds());
+	}
+	private boolean isBottomCollision(){
+		return getBoundsBottom().intersects(Stage.arrayObstacle.get(i).getBounds());
 	}
 	
 	public Image getImage(){
